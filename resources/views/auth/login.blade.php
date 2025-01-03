@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en">
 
 <head>
@@ -6,17 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Job Portal: Login</title>
-    <!-- Google Fonts -->
+    <!--/google-fonts -->
     <link href="//fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <!--//google-fonts -->
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{asset('user/assets/css/style-starter.css')}}">
 </head>
 
 <body>
-    <!-- Header -->
+    <!--/Header-->
     @include('user.common.header')
-    <!-- //Header -->
-
+    <!--//Header-->
+    
     <!-- Theme Switcher Dropdown (Light/Dark) -->
     <div class="theme-switcher">
         <select id="theme-switch-dropdown" aria-label="Switch Theme">
@@ -25,7 +25,7 @@
         </select>
     </div>
 
-    <!-- Breadcrumb Section -->
+    <!-- breadcrumb -->
     <section class="w3l-about-breadcrumb">
         <div class="breadcrumb-bg breadcrumb-bg-about">
             <div class="container py-lg-5 py-sm-4">
@@ -41,9 +41,9 @@
             </div>
         </div>
     </section>
-    <!-- //Breadcrumb Section -->
+    <!--//breadcrumb-->
 
-    <!-- Login Form Section -->
+    <!-- contact2 -->
     <section class="w3l-contact-1 w3hny-form-btm py-5" id="login">
         <div class="contacts-9 py-lg-5 py-md-4">
             <div class="container">
@@ -53,68 +53,53 @@
                         Access your job opportunities and <br> manage your career anytime
                     </h3>
                 </div>
-
-                <!-- Success Message -->
                 @if(session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
                 @endif
-
-                <!-- Login Form -->
                 <div class="contactct-fm map-content-9">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form action="{{route('login')}}" class="pt-lg-4" method="post">
                         @csrf
-
-                        <!-- Email Address -->
                         <div class="form-group">
-                            <x-input-label for="email" :value="__('Email')" />
-                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" value="{{ old('email') }}" required="">
+                            @error('email')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
-                        <!-- Password -->
-                        <div class="form-group mt-4">
-                            <x-input-label for="password" :value="__('Password')" />
-                            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" value="{{ old('password') }}" required="">
+                            @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
-                        <!-- Remember Me -->
+                        </div>
                         <div class="form-check mt-4 mb-3">
                             <input id="remember_me" type="checkbox" class="form-check-input" name="remember" style="width: 16px; height: 16px;">
                             <label for="remember_me" class="form-check-label text-sm text-gray-600 dark:text-gray-400" style="font-size: 0.875rem;">
                                 {{ __('Remember me') }}
                             </label>
                         </div>
-
-
-
-                        <!-- Forgot Password Link -->
-                        <div class="flex items-center justify-between mt-4">
-                            @if (Route::has('password.request'))
-                                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100" href="{{ route('password.request') }}">
-                                    {{ __('Forgot your password?') }}
-                                </a>
-                            @endif
-
+                        <div class="text-lg-center">
                             <!-- Submit Button -->
-                            <button type="submit" class="btn btn-primary ms-3">
-                                {{ __('Log in') }}
-                            </button>
+                            <button type="submit" name="submit" id="submit" class="btn btn-primary btn-style mt-lg-5 mt-4">login</button>
                         </div>
                     </form>
+                    <!-- Message for Users Not Registered -->
+                    <p class="mt-4 text-center">Don't have an account? <a href="{{ route('register') }}" class="text-primary">Register here</a> to get started with your job search!</p>    
                 </div>
             </div>
         </div>
     </section>
-    <!-- //Login Form Section -->
+    <!-- /contact2 -->
 
-    <!-- Footer -->
+    <!-- footer -->
     @include('user.common.footer')
-    <!-- //Footer -->
+    <!-- //footer -->
 
-    <!-- Js Scripts -->
+    <!-- Js scripts -->
     <script src="{{asset('user/assets/js/jquery-3.3.1.min.js')}}"></script>
     <script src="{{asset('user/assets/js/theme-change.js')}}"></script>
     <!-- Template JavaScript -->

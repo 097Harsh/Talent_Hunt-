@@ -34,6 +34,16 @@
                         <li class="nav-item me-lg-3">
                             <a href="{{ route('login') }}" class="phone-btn btn btn-primary btn-style d-none d-lg-block btn-style ms-2">login</a>
                         </li>
+                        @if(Auth::check())
+                        <li class="nav-item me-lg-3">
+                            <form action="{{ route('logout') }}" method="POST" class="d-none d-lg-block">
+                                @csrf
+                                <button type="submit" class="phone-btn btn btn-primary btn-style ms-2">Logout</button>
+                            </form>
+                        </li>
+                        @endif
+                        
+                        
                     </ul>
 
                     <!-- //toggle switch for light and dark theme -->

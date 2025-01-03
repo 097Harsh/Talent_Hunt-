@@ -34,7 +34,8 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed'],
+            'password' => 'required | min:6',
+            'confirm_password' => 'required|same:password',
             'role_id' => ['required'],
         ]);
 
@@ -45,10 +46,7 @@ class RegisteredUserController extends Controller
             'role_id' => $request->role_id,
         ]);
 
-        event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->route('login')->with('status','Registeration successfully...');
     }
 }
