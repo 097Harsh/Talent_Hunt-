@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            $table->unsignedBigInteger('role_id');
-            $table->foreign('role_id')->references('role_id')->on('role')->onDelete('cascade');
+        Schema::create('course', function (Blueprint $table) {
+            $table->id('course_id');
+            $table->string('course_name');
+            $table->integer('is_delete');
+            $table->timestamps();
         });
     }
 
@@ -23,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('course');
     }
 };

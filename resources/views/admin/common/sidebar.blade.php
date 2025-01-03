@@ -12,7 +12,7 @@
             />
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light">AdminLTE 4</span>
+            <span class="brand-text fw-light">Admin </span>
             <!--end::Brand Text-->
           </a>
           <!--end::Brand Link-->
@@ -41,7 +41,18 @@
                     <p>Manage Users</p>
                     </a>
                 </li>
-              
+                <li class="nav-item">
+                    <a href="{{route('ManageCourse')}}" class="nav-link">
+                    <i class="nav-icon bi bi-mortarboard"></i>
+                    <p>Manage Courses</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('ManageSkills')}}" class="nav-link">
+                    <i class="nav-icon bi bi-lightbulb"></i>
+                    <p>Manage Skills</p>
+                    </a>
+                </li>
             </ul>
             <!--end::Sidebar Menu-->
           </nav>

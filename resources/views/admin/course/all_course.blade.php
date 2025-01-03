@@ -6,7 +6,7 @@ $count = 1;
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title> Manage Users</title>
+    <title> Manage course</title>
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="title" content="AdminLTE 4 | Simple Tables" />
@@ -72,11 +72,11 @@ $count = 1;
           <div class="container-fluid">
             <!--begin::Row-->
             <div class="row">
-              <div class="col-sm-6"><h3 class="mb-0">Manager Users</h3></div>
+              <div class="col-sm-6"><h3 class="mb-0">Manager Course</h3></div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
-                  <li class="breadcrumb-item">Home</li>
-                  <li class="breadcrumb-item active" aria-current="page">Manage Users</li>
+                  <li class="breadcrumb-item">Dashboard</li>
+                  <li class="breadcrumb-item active" aria-current="page">Manage Course</li>
                 </ol>
               </div>
             </div>
@@ -97,21 +97,24 @@ $count = 1;
                     {{ session('status') }}
                 </div>
                 @endif
+                
                     <table class="table table-hover">
                         <tr>
-                            <td>ID</td>
-                            <td>Name</td>
-                            <td>Email</td>
-                            <td>Action</td>
+                            <td>Course ID</td>
+                            <td>Course Name</td>
+                            <td  align="center">Action</td>
+                            <td>
+                                <a href="{{route('AddCourse')}}"><button class="btn btn-primary" style="float:right;">ADD</button></a>
+                            </td>
                         </tr>
-                        @foreach($users as $user)
-                        <tr data-id="{{$user->id}}">
+                        @foreach($courses as $course)
+                        <tr data-id="{{$course->course_id}}">
                             <td>{{$count++}}</td>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->email}}</td>
+                            <td>{{$course->course_name}}</td>
+                            <td>{{$course->email}}</td>
                             <td colspan="2">
-                              <button class="btn btn-primary">Edit</button>
-                              <button class="deleteRecord btn btn-danger" data-id="{{$user->id}}" value="{{$user->id}}">Delete</button>
+                              <a href="{{route('EditCourse',['id' => $course->course_id])}}"><button class="btn btn-primary">Edit</button></a>
+                              <button class="deleteRecord btn btn-danger" data-id="{{$course->course_id}}" value="{{$course->course_id}}">Delete</button>
                             </td>
                         </tr>
                         @endforeach
@@ -137,7 +140,7 @@ $count = 1;
                       </div>
                       <div class="modal-body">
                           <input type="hidden" name="user_id" id="user_id">
-                          <h5>Are you sure you want to delete this user?</h5>
+                          <h5>Are you sure you want to delete this course?</h5>
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -182,13 +185,13 @@ $count = 1;
             // Show the delete modal when clicking delete button
             $('.deleteRecord').click(function (e) {
                 e.preventDefault();
-                var user_id = $(this).data('id');  // Get the user id from data-id attribute
-                console.log("user_id:", user_id);
-                
+                var user_id = $(this).data('id');  
+                console.log("course_id:", user_id);
+                //debugger;
                 // Set the user_id value in the modal input
                 $('#user_id').val(user_id);
                 
-                $('#deleteUserForm').attr('action', '/delete_user/' + user_id);
+                $('#deleteUserForm').attr('action', '/delete_course/' + user_id);
 
                 // Show the delete confirmation modal
                 $('#deleteModel').modal('show');

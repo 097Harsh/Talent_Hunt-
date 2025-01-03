@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            $table->unsignedBigInteger('role_id');
-            $table->foreign('role_id')->references('role_id')->on('role')->onDelete('cascade');
+        Schema::create('state', function (Blueprint $table) {
+            $table->id('state_id');
+            $table->string('state_name');
+            $table->unsignedBigInteger('country_id');
+            $table->foreign('country_id')->references('country_id')->on('country');
+            $table->timestamps();
         });
     }
 
@@ -23,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('state');
     }
 };
