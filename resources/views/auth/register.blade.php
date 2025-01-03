@@ -99,12 +99,11 @@
 
                         <div class="text-lg-center">
                             <!-- Submit Button -->
-                            <button type="submit" name="submit" id="submit" class="btn btn-primary btn-style mt-lg-5 mt-4">login</button>
+                            <button type="submit" name="submit" id="submit" class="btn btn-primary btn-style mt-lg-5 mt-4">register</button>
                         </div>
                     </form>
                     <!-- Message for Users Not Registered -->
-    <p class="mt-4 text-center">Don't have an account? <a href="{{ route('register') }}" class="text-primary">Register here</a> to get started with your job search!</p>    
-                </div>
+             </div>
             </div>
         </div>
     </section>
