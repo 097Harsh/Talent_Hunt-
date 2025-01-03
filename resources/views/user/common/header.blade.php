@@ -2,7 +2,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light stroke py-lg-0">
             <h1><a class="navbar-brand pe-xl-5 pe-lg-4" href="index.html">
-                    <span class="sublog">Job</span>Portal
+                    <span class="sublog">Talent</span>Hunt
                 </a></h1>
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
@@ -17,10 +17,7 @@
                         <a class="nav-link" href="{{route('about')}}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="services.html">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
+                        <a class="nav-link" href="{{route('contact')}}">Contact</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav search-right mt-lg-0 mt-2">
@@ -39,7 +36,7 @@
                                 {{Auth::user()->name}}
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="#">Update Profile</a></li>
+                                <li><a class="dropdown-item" href="{{route('userProfile')}}">Update Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li class="nav-item me-lg-3">
                                     <form action="{{ route('logout') }}" method="POST" class="d-none d-lg-block">

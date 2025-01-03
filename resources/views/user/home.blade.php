@@ -1,8 +1,4 @@
-@php 
 
-//echo Auth::user()->name; die;
-
-@endphp
 <!doctype html>
 <html lang="en">
 

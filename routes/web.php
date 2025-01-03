@@ -8,6 +8,13 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/',[UserController::class,'home'])->name('home');
 Route::get('/about',[UserController::class,'about'])->name('about');
+Route::get('/contact',[UserController::class,'contact'])->name('contact');
+//store contact detials
+Route::post('/storeContact',[UserController::class,'storeContact'])->name('storeContact');
+
+//User side URL's
+Route::get('/userProfile',[UserController::class,'userProfile'])->middleware(['auth', 'verified'])->name('userProfile');
+
 
 //Admin URl
 Route::get('/dashboard',[AdminController::class,'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');

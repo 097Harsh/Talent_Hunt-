@@ -12,7 +12,7 @@
             />
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light">Admin </span>
+            <span class="brand-text fw-light">TalentHunt </span>
             <!--end::Brand Text-->
           </a>
           <!--end::Brand Link-->
