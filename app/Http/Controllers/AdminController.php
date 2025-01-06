@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Course;
 use App\Models\Skills;
+use App\Models\feedback;
 use Illuminate\Queue\Middleware\Skip;
 
 class AdminController extends Controller
@@ -17,8 +18,9 @@ class AdminController extends Controller
     public function dashboard()
     {
         if(Auth::check())
-        {
-            return view('admin.dashboard');
+        {   
+            $users = DB::table('users')->where('role_id','=','2')->count();
+            return view('admin.dashboard',compact('users'));
         }
         return redirect()->route('login')->with('status','Please firtly logged in...');
     }
@@ -238,5 +240,14 @@ class AdminController extends Controller
             return redirect()->route('ManageSkills')->with('status','skill not updated successfully...');
         }
         return redirect()->route('login')->with('status','Please firtly logged in...');
+    }
+    //view Feedback
+    public function ViewFeedBack()
+    {
+        if(Auth::check())
+        {
+            $record = feedback::all();
+            return view('admin.ViewFeedBack',compact('record'));
+        }
     }
 }

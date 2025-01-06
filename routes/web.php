@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-
+use App\Models\User;
 
 Route::get('/',[UserController::class,'home'])->name('home');
 Route::get('/about',[UserController::class,'about'])->name('about');
@@ -21,6 +21,9 @@ Route::get('/get_country',[UserController::class,'get_country'])->name('get_coun
 Route::get('/get_state',[UserController::class,'get_state'])->name('get_state');
 //for fetching city
 Route::get('/get_city',[UserController::class,'get_city'])->name('get_city');
+//feedback 
+Route::get('/feedback',[UserController::class,'feedback'])->middleware(['auth', 'verified'])->name('feedback');
+Route::post('/store_feedback',[UserController::class,'store_feedback'])->middleware(['auth', 'verified'])->name('store_feedback');
 
 //Admin URl
 Route::get('/dashboard',[AdminController::class,'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -49,6 +52,9 @@ Route::post('/delete_skill/{id}', [AdminController::class, 'deleteSkill'])->midd
 //editing skill
 Route::get('/EditSkill/{id}',[AdminController::class,'editSkill'])->middleware(['auth', 'verified'])->name('EditSkill');
 Route::post('/updatingRecord/{id}',[AdminController::class,'UpdatingSkill'])->middleware(['auth', 'verified'])->name('UpdatingSkill');
+//view feedback 
+Route::get('ViewFeedBack',[AdminController::class,'ViewFeedBack'])->middleware(['auth', 'verified'])->name('ViewFeedBack');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

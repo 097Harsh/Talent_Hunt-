@@ -12,6 +12,7 @@ use App\Models\Country;
 use App\Models\City;
 use App\Models\State;
 use App\Models\UserProfile;
+use App\Models\feedback;
 
 class UserController extends Controller
 {
@@ -165,5 +166,30 @@ class UserController extends Controller
         }
         return response()->json($city);
    }
-
+   //feedback page
+   public function feedback()
+   {
+        if(Auth::check())
+        {
+            return view('user.feedback');
+        }
+        return redirect()->route('login')->with('status','Please firtly logged in...');
+   }
+   public function store_feedback(Request $request)
+   {
+        $validated = $request->validate([
+            'rating' => 'required',
+            'msg'   =>  'required | max:255',
+        ]);
+        if(Auth::check())
+        {
+            $user_id = Auth::user()->id;
+            $feedback = new feedback();
+            $feedback->user_id = $user_id;
+            $feedback->rating = $request->rating;
+            $feedback->msg = $request->msg;
+            $feedback->save();
+            return redirect()->route('feedback')->with('status','feedback sended...');
+        }
+   }
 }

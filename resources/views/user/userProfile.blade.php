@@ -193,7 +193,7 @@ $city_id = $user_profile->city_id;
                             <div class="dropdown-wrapper">
                                 <select class="form-control" name="city_id" id="city_id" required="">
                                     <option value="" disabled selected>-----Select a City-----</option>
-                                    <
+                                    
                                 </select>
                                 @error('city_id')
                                     <span class="text-danger">{{ $message }}</span>

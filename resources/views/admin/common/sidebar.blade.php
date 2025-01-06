@@ -53,6 +53,12 @@
                     <p>Manage Skills</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('ViewFeedBack')}}" class="nav-link">
+                    <i class="nav-icon bi bi-chat-square-dots"></i>
+                    <p>View Feedback</p>
+                    </a>
+                </li>
             </ul>
             <!--end::Sidebar Menu-->
           </nav>

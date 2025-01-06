@@ -19,14 +19,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('contact')}}">Contact</a>
                     </li>
-                </ul>
-                <ul class="navbar-nav search-right mt-lg-0 mt-2">
-                    <li class="nav-item" title="Search">
-                        <a href="#search" class="search-search">
-                            <span class="fas fa-search" aria-hidden="true"></span>
-                        </a>
+                    @if(Auth::check())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('feedback')}}">Feedback</a>
                     </li>
-
+                    @endif
+                </ul>
+               
                     @if(Auth::check())
                     <!-- Dropdown Button and Logout -->
                     <li class="nav-item me-lg-3">
