@@ -112,6 +112,7 @@ $count = 1;
                             <td colspan="2">
                               <a href="{{route('EditUser',['id' => $user->id])}}"><button class="btn btn-primary">Edit</button></a>
                               <button class="deleteRecord btn btn-danger" data-id="{{$user->id}}" value="{{$user->id}}">Delete</button>
+                              <a href=""><button class="btn btn-success"><i class="bi bi-eye"></i></button></a>
                             </td>
                         </tr>
                         @endforeach
