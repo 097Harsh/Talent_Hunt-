@@ -1,3 +1,8 @@
+@php 
+$count_id = old('count_id','');
+$state_id = old('state_id','');
+$city_id = old('city_id','');
+@endphp
 <!doctype html>
 <html lang="en">
 
@@ -11,6 +16,11 @@
     <!--//google-fonts -->
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{asset('user/assets/css/style-starter.css')}}">
+    <!-- Include only one version of jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -68,7 +78,12 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-
+                        <div class="form-group">
+                            <input type="number" class="form-control" name="contact" id="contact" placeholder="Enter your contact number" value="{{ old('contact') }}" required="">
+                            @error('contact')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="form-group">
                             <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" value="{{ old('password') }}" required="">
                             @error('password')
@@ -86,7 +101,7 @@
                         <div class="form-group">
                             <div class="dropdown-wrapper">
                                 <select class="form-control" name="role_id" id="role_id" required="">
-                                    <option value="" disabled selected>-----Select Role-----</option>
+                                    <option value="" disabled selected>-----Select an Role-----</option>
                                     @foreach($roles as $role)
                                     <option value="{{$role->role_id}}" {{ old('role_id') == $role->role_id ? 'selected' : '' }}>{{$role->role_name}}</option>
                                     @endforeach
@@ -96,6 +111,40 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="dropdown-wrapper">
+                                <select class="form-control" name="count_id" id="count_id" required="">
+                                    <option value="" disabled selected>-----Select Country-----</option>
+                                   
+                                </select>
+                                @error('count_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="dropdown-wrapper">
+                                <select class="form-control" name="state_id" id="state_id" required="">
+                                    <option value="" disabled selected>-----Select State-----</option>
+                                   
+                                </select>
+                                @error('state_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="dropdown-wrapper">
+                                <select class="form-control" name="city_id" id="city_id" required="">
+                                    <option value="" disabled selected>-----Select City-----</option>
+                                   
+                                </select>
+                                @error('city_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
 
                         <div class="text-lg-center">
                             <!-- Submit Button -->
@@ -118,7 +167,88 @@
     <script src="{{asset('user/assets/js/theme-change.js')}}"></script>
     <!-- Template JavaScript -->
     <script src="{{asset('user/assets/js/bootstrap.min.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var CountryId = "{{$count_id}}";
+            var StateId = "{{$state_id}}";
+            var CityId = "{{$city_id}}";
+            //for country
+            $.ajax({
+            url: "/get_country",
+            type: 'GET',
+            success: function(data) {
+                $('#count_id').empty();
+                $('#count_id').append('<option value="">-----Select an Country-----</option>');
+                for (var i = 0; i < data.length; i++)
+                {
+                    var selected = data[i].country_id == CountryId ? 'selected' : '';
+                    $('#count_id').append('<option value="' + data[i].country_id + '" ' + selected + '>' + data[i].country_name + '</option>');
+                }
+                if (CountryId) {
+                    $('#count_id').val(CountryId).trigger('change');
+                }
+            }
+            });
+            //for state
+            $('#count_id').change(function(){
+                var countryId = $(this).val();
+                console.log(countryId);
+                $('#state_id').empty();
+                $('#state_id').append('<option value="">Select an State</option>')
+                $('#city_id').empty();
+                $('#city_id').append('<option value="">Select an City</option>')
+                if(countryId)
+                {
+                    $.ajax({
+                        url: "/get_state",
+                        type:"GET",
+                        data :{id:countryId},
+                        success: function(data) 
+                        {
+                           console.log("stateid:",StateId);
+                           for(var i=0;i<data.length;i++)
+                            {
+                                var selected = data[i].state_id == StateId ? 'selected':'';
+                                $('#state_id').append('<option value="' + data[i].state_id + '" ' + selected + '>' + data[i].state_name + '</option>');   
+                            } 
+                            if(StateId)
+                            {
+                                $('#state_id').val(StateId).trigger('change');
+                            }
+                        }
+                    });   
+                }
+            });
+            //for city
+            $('#state_id').change(function(){
+                var stateId = $(this).val();
+                console.log("stateid:",stateId);
+                $('#city_id').empty();
+                $('#city_id').append('<option value="">Select an City</option>')
+                if(stateId)
+                {
+                    //console.log('stateid:',stateId);debugger;
+                    $.ajax({
+                        url: '/get_city',
+                        type: 'GET',
+                        data: { id: stateId },
+                        success: function(data) {
+                            for (var i = 0; i < data.length; i++) {
+                                var selected = data[i].city_id == CityId ? ' selected' : '';
 
+                                $('#city_id').append('<option value="' + data[i].city_id + '" ' + selected + '>' + data[i].city_name + '</option>');
+                            }
+                            if (StateId) {
+                                $('#city_id').val(CityId).trigger('change');
+                            }
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
 </body>
 
 </html>

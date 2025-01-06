@@ -28,7 +28,6 @@ class AdminController extends Controller
         if(Auth::check())
         {
             $users = User::where('role_id',2)->get();
-            //echo "<pre>";print_r($users);echo "</pre>";die;
             return view('admin.users.all_users',compact('users'));
         }   
         return redirect()->route('login')->with('status','Please firtly logged in...');
@@ -36,9 +35,7 @@ class AdminController extends Controller
     //delete User
     public function deleteUser(Request $request)
     {
-        //echo "hi";die;
         $id = $request->input('user_id');
-        //echo $id;die;
         if (Auth::check()) {
             $user = User::find($id);
             if ($user) {
@@ -52,11 +49,9 @@ class AdminController extends Controller
     //Edit user record 
     public function editUser($id)
     {   
-        //echo $id;die;
         if(Auth::check())
         {
             $user = User::find($id);
-            //echo "<pre>";print_r($user);echo "</pre>";die;
             if($user)
             {
                 return view('admin.users.edit_user',compact('user'));
@@ -75,12 +70,11 @@ class AdminController extends Controller
         if(Auth::check())
         {
             $user = User::findorfail($id);
-            //echo "<pre>";print_r($user);echo "</pre>";die;
+         
             if($user)
             {
                 $user->name = $request->input('name');
                 $user->email = $request->input('email');
-                //$user->email_verified_at = now();
                 $user->save();
                 return redirect()->route('ManagerUsers')->with('status','user updated successfully...');
             }
@@ -94,7 +88,6 @@ class AdminController extends Controller
         if(Auth::check())
         {
             $courses = Course::where('is_delete','=','0')->get();
-            //echo "<pre>";print_r($courses);die;
             return view('admin.course.all_course',compact('courses'));
         }
         return redirect()->route('login')->with('status','Please firtly logged in...');
@@ -129,7 +122,6 @@ class AdminController extends Controller
         $id = $request->input('user_id');
         if (Auth::check()) {
             $course = DB::table('course')->where('course_id','=',$id)->first();
-            //print_r($course);die;
             if ($course) {
                $record = DB::table('course')->where('course_id','=',$id)->update(['is_delete'=>1]);
                 return redirect()->route('ManageCourse')->with('status','course deleted successfully...');

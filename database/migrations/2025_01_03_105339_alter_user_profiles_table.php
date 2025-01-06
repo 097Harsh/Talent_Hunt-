@@ -11,7 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->id('p_id');
             $table->text('objective');
@@ -20,19 +19,18 @@ return new class extends Migration
             $table->string('user_image');
             $table->string('designation');
             $table->text('address');
-            $table->unsignedBigInteger('user_id'); // Foreign key to users table
-            $table->unsignedBigInteger('country_id'); // Foreign key to country table
-            $table->unsignedBigInteger('state_id'); // Foreign key to state table
-            $table->unsignedBigInteger('city_id'); // Foreign key to city table
-            $table->unsignedBigInteger('course_id'); // Foreign key to course table
-            $table->unsignedBigInteger('skill_id'); // Foreign key to skills table
+            $table->unsignedBigInteger('user_id'); 
+            $table->unsignedBigInteger('country_id')->nullable();
+            $table->unsignedBigInteger('state_id')->nullable(); 
+            $table->unsignedBigInteger('city_id')->nullable(); 
+            $table->text('course')->nullable(); 
+            $table->text('skills')->nullable(); 
             
             // Foreign key constraints
-            $table->foreign('country_id')->references('country_id')->on('country')->onDelete('cascade');
-            $table->foreign('state_id')->references('state_id')->on('state')->onDelete('cascade');
-            $table->foreign('city_id')->references('city_id')->on('city')->onDelete('cascade');
-            $table->foreign('course_id')->references('course_id')->on('course')->onDelete('cascade');
-            $table->foreign('skill_id')->references('skill_id')->on('skills')->onDelete('cascade');
+            $table->foreign('country_id')->references('country_id')->on('country')->onDelete('set null');
+            $table->foreign('state_id')->references('state_id')->on('state')->onDelete('set null');
+            $table->foreign('city_id')->references('city_id')->on('city')->onDelete('set null');
+            
             $table->timestamps();
         });
     }
@@ -42,7 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
         Schema::dropIfExists('user_profiles');
     }
 };

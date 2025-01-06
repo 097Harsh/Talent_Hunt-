@@ -14,7 +14,13 @@ Route::post('/storeContact',[UserController::class,'storeContact'])->name('store
 
 //User side URL's
 Route::get('/userProfile',[UserController::class,'userProfile'])->middleware(['auth', 'verified'])->name('userProfile');
-
+Route::post('/UpdateProfile',[UserController::class,'UpdateProfile'])->middleware(['auth', 'verified'])->name('UpdateProfile');
+//for fetching record for country,state, and city using ajax URL's
+Route::get('/get_country',[UserController::class,'get_country'])->name('get_country');
+//for fetching state
+Route::get('/get_state',[UserController::class,'get_state'])->name('get_state');
+//for fetching city
+Route::get('/get_city',[UserController::class,'get_city'])->name('get_city');
 
 //Admin URl
 Route::get('/dashboard',[AdminController::class,'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
